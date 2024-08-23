@@ -5,7 +5,7 @@ import streamlit as st
 # Load the pre-trained machine learning model from a pickle file
 model = pickle.load(open('model.pkl', 'rb'))
 
-# Apply custom CSS for Bootstrap-like styling
+# Apply custom CSS for a sleek, modern design
 st.markdown("""
     <style>
     /* Center alignment for the entire app */
@@ -14,60 +14,74 @@ st.markdown("""
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding: 20px;
+        margin-top: 20px;
     }
-    /* Bootstrap-like card style */
+    /* Modern card style */
     .card {
+        background-color: #ffffff;
         padding: 20px;
         margin: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #1f77b4;
         transition: 0.3s;
-        background-color: #f8f9fa;
     }
     /* Hover effect for the card */
     .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     }
     /* Button style */
     .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #1f77b4;
         color: white;
-        padding: 10px 20px;
+        padding: 10px 30px;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
+        border: none;
+        transition: 0.3s;
     }
     .btn-primary:hover {
-        background-color: #0056b3;
+        background-color: #125a82;
     }
-    /* Center the title */
+    /* Center the title with modern typography */
     .title {
         text-align: center;
-        color: #343a40;
+        color: #1f77b4;
+        font-family: 'Helvetica Neue', sans-serif;
+        margin-bottom: 0px;
     }
-    /* Center the subtitle */
+    /* Subtitle with a sleek, thin font */
     .subtitle {
         text-align: center;
-        color: #6c757d;
-        margin-bottom: 20px;
+        color: #555555;
+        font-family: 'Helvetica Neue', sans-serif;
+        margin-top: 0px;
+        margin-bottom: 30px;
+        font-weight: 300;
+    }
+    /* Input labels with subtle gray color */
+    .stRadio label, .stSlider label, .stSelectbox label {
+        color: #333333;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # Layout for title and subtitle
-st.markdown("<h1 class='title'>GREY59</h1>", unsafe_allow_html=True)
-st.markdown("<h3 class='subtitle'>Machine Learning Salary Predictor</h3>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>Sleek Salary Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<h3 class='subtitle'>Powered by Machine Learning</h3>", unsafe_allow_html=True)
 
 # Create a card layout for the input section
 with st.container():
     st.markdown("<div class='card centered-content'>", unsafe_allow_html=True)
     
-    # Create input widgets for user data
-    gender = st.radio('Pick your gender', ["Female", "Male"])
-    age = st.slider('Pick your age', 21, 55)  # Age slider
-    education = st.selectbox('Pick your education level', ["Bachelor's", "Master's", "PhD"])
-    job = st.selectbox('Pick your job title', ["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"])
-    experience = st.slider('Pick your years of experience', 0.0, 25.0, 0.0, 0.5, "%1f")  # Experience slider
+    # Create input widgets for user data with aligned styling
+    gender = st.radio('Select Gender', ["Female", "Male"])
+    age = st.slider('Select Age', 21, 55)  # Age slider
+    education = st.selectbox('Select Education Level', ["Bachelor's", "Master's", "PhD"])
+    job = st.selectbox('Select Job Title', ["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"])
+    experience = st.slider('Years of Experience', 0.0, 25.0, 0.0, 0.5, "%1f")  # Experience slider
 
     # Button to trigger the salary prediction
     predict_btn = st.markdown('<button class="btn-primary">Predict Salary</button>', unsafe_allow_html=True)

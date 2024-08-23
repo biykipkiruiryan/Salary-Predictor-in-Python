@@ -16,7 +16,7 @@ with col1:
 with col2:
     st.write('')  # Empty column for spacing
 with col3:
-    st.title("GREY 59")  # Title for the application
+    st.title("GREY59")  # Title for the application
 with col4:
     st.write('')  # Empty column for spacing
 with col5:
@@ -32,7 +32,7 @@ with col7:
     st.write('')  # Empty column for spacing
 with col8:
     # Display the subtitle with custom HTML styling
-    st.markdown("<h6 style='text-align: center;'>Machine Learning Salary Predictor</h6>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Machine Learning Salary Predictor</h3>", unsafe_allow_html=True)
 with col9:
     st.write('')  # Empty column for spacing
 

@@ -83,25 +83,22 @@ with st.container():
     job = st.selectbox('Select Job Title', ["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"])
     experience = st.slider('Years of Experience', 0.0, 25.0, 0.0, 0.5, "%1f")  # Experience slider
 
-    # Button to trigger the salary prediction
-    predict_btn = st.markdown('<button class="btn-primary">Predict Salary</button>', unsafe_allow_html=True)
-    
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Create a Streamlit button for the prediction
+    if st.button('Predict Salary'):
+        # Convert user inputs into the format expected by the model
+        inp1 = int(age)  # Convert age to integer
+        inp2 = float(experience)  # Convert experience to float
+        inp3 = int(["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"].index(job))  # Convert job title to corresponding index
+        inp4 = int(["Bachelor's", "Master's", "PhD"].index(education))  # Convert education level to corresponding index
+        inp5 = int(["Female", "Male"].index(gender))  # Convert gender to corresponding index
+        
+        # Create input feature vector for prediction
+        X = [inp1, inp2, inp3, inp4, inp5]
+        
+        # Predict salary using the loaded model
+        salary = model.predict([X])
+        
+        # Display the estimated salary
+        st.markdown(f"<div class='card centered-content'><h4>Estimated Salary: ${int(salary[0]):,}</h4></div>", unsafe_allow_html=True)
 
-# Check if the prediction button was clicked
-if st.button('Predict Salary'):
-    # Convert user inputs into the format expected by the model
-    inp1 = int(age)  # Convert age to integer
-    inp2 = float(experience)  # Convert experience to float
-    inp3 = int(["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"].index(job))  # Convert job title to corresponding index
-    inp4 = int(["Bachelor's", "Master's", "PhD"].index(education))  # Convert education level to corresponding index
-    inp5 = int(["Female", "Male"].index(gender))  # Convert gender to corresponding index
-    
-    # Create input feature vector for prediction
-    X = [inp1, inp2, inp3, inp4, inp5]
-    
-    # Predict salary using the loaded model
-    salary = model.predict([X])
-    
-    # Display the estimated salary
-    st.markdown(f"<div class='card centered-content'><h4>Estimated Salary: ${int(salary[0]):,}</h4></div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)

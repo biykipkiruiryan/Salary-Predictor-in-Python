@@ -2,103 +2,76 @@ import pickle
 import numpy as np
 import streamlit as st
 
-# Load the pre-trained machine learning model from a pickle file
+# Load the machine learning model from 'model.pkl'
 model = pickle.load(open('model.pkl', 'rb'))
 
-# Apply custom CSS for a sleek, modern design
-st.markdown("""
-    <style>
-    /* Center alignment for the entire app */
-    .centered-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 20px;
-        margin-top: 20px;
-    }
-    /* Modern card style */
-    .card {
-        background-color: #ffffff;
-        padding: 20px;
-        margin: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        border-left: 5px solid #1f77b4;
-        transition: 0.3s;
-    }
-    /* Hover effect for the card */
-    .card:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    }
-    /* Button style */
-    .btn-primary {
-        background-color: #1f77b4;
-        color: white;
-        padding: 10px 30px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        border: none;
-        transition: 0.3s;
-    }
-    .btn-primary:hover {
-        background-color: #125a82;
-    }
-    /* Center the title with modern typography */
-    .title {
-        text-align: center;
-        color: #1f77b4;
-        font-family: 'Helvetica Neue', sans-serif;
-        margin-bottom: 0px;
-    }
-    /* Subtitle with a sleek, thin font */
-    .subtitle {
-        text-align: center;
-        color: #555555;
-        font-family: 'Helvetica Neue', sans-serif;
-        margin-top: 0px;
-        margin-bottom: 30px;
-        font-weight: 300;
-    }
-    /* Input labels with subtle gray color */
-    .stRadio label, .stSlider label, .stSelectbox label {
-        color: #333333;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Create 7 columns for layout
+col0, col1, col2, col3, col4, col5, col6 = st.columns(7)
+with col0:
+    st.write('')  # Empty column for spacing
+with col1:
+    st.write('')  # Empty column for spacing
+with col2:
+    st.write('')  # Empty column for spacing
+with col3:
+    st.title("GREY59")  # Centered title
+with col4:
+    st.write('')  # Empty column for spacing
+with col5:
+    st.write('')  # Empty column for spacing
+with col6:
+    st.write('')  # Empty column for spacing
 
-# Layout for title and subtitle
-st.markdown("<h1 class='title'>Sleek Salary Predictor</h1>", unsafe_allow_html=True)
-st.markdown("<h3 class='subtitle'>Powered by Machine Learning</h3>", unsafe_allow_html=True)
+# Create 3 columns for the subtitle
+col7, col8, col9 = st.columns(3)
+with col7:
+    st.write('')  # Empty column for spacing
+with col8:
+    # Centered subtitle using markdown with HTML for styling
+    st.markdown("<h6 style='text-align: center;'>A simple web app to predict annual salary</h6>", unsafe_allow_html=True)
+with col9:
+    st.write('')  # Empty column for spacing
 
-# Create a card layout for the input section
-with st.container():
-    st.markdown("<div class='card centered-content'>", unsafe_allow_html=True)
-    
-    # Create input widgets for user data with aligned styling
-    gender = st.radio('Select Gender', ["Female", "Male"])
-    age = st.slider('Select Age', 21, 55)  # Age slider
-    education = st.selectbox('Select Education Level', ["Bachelor's", "Master's", "PhD"])
-    job = st.selectbox('Select Job Title', ["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"])
-    experience = st.slider('Years of Experience', 0.0, 25.0, 0.0, 0.5, "%1f")  # Experience slider
+# Define the lists for user input options
+gen_list = ["Female", "Male"]  # Gender options
+edu_list = ["Bachelor's", "Master's", "PhD"]  # Education level options
+job_list = ["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"]  # Job title options
+job_idx = [0, 1, 10, 11, 20]  # Indices corresponding to job titles in the model
 
-    # Create a Streamlit button for the prediction
-    if st.button('Predict Salary'):
-        # Convert user inputs into the format expected by the model
-        inp1 = int(age)  # Convert age to integer
-        inp2 = float(experience)  # Convert experience to float
-        inp3 = int(["Director of Marketing", "Director of Operations", "Senior Data Scientist", "Senior Financial Analyst", "Senior Software Engineer"].index(job))  # Convert job title to corresponding index
-        inp4 = int(["Bachelor's", "Master's", "PhD"].index(education))  # Convert education level to corresponding index
-        inp5 = int(["Female", "Male"].index(gender))  # Convert gender to corresponding index
-        
-        # Create input feature vector for prediction
-        X = [inp1, inp2, inp3, inp4, inp5]
-        
-        # Predict salary using the loaded model
-        salary = model.predict([X])
-        
-        # Display the estimated salary
-        st.markdown(f"<div class='card centered-content'><h4>Estimated Salary: ${int(salary[0]):,}</h4></div>", unsafe_allow_html=True)
+# User inputs
+gender = st.radio('Pick your gender', gen_list)  # Radio button for gender selection
+age = st.slider('Pick your age', 21, 55)  # Slider for age selection (range 21 to 55)
+education = st.selectbox('Pick your education level', edu_list)  # Dropdown for education level
+job = st.selectbox('Pick your job title', job_list)  # Dropdown for job title
+experience = st.slider('Pick your years of experience', 0.0, 25.0, 0.0, 0.5, "%1f")  # Slider for experience (0 to 25 years, step of 0.5)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+# Create 5 columns for the Predict button layout
+col10, col11, col12, col13, col14 = st.columns(5)
+with col10:
+    st.write('')  # Empty column for spacing
+with col11:
+    st.write('')  # Empty column for spacing
+with col12:
+    predict_btn = st.button('Predict Salary')  # Centered button to trigger the prediction
+with col13:
+    st.write('')  # Empty column for spacing
+with col14:
+    st.write('')  # Empty column for spacing
+
+# If the Predict Salary button is pressed
+if(predict_btn):
+    inp1 = int(age)  # Convert age to integer
+    inp2 = float(experience)  # Convert experience to float
+    inp3 = int(job_idx[job_list.index(job)])  # Map job title to its corresponding index
+    inp4 = int(edu_list.index(education))  # Map education level to its corresponding index
+    inp5 = int(gen_list.index(gender))  # Map gender to its corresponding index
+    X = [inp1, inp2, inp3, inp4, inp5]  # Create a feature array for prediction
+    salary = model.predict([X])  # Predict the salary using the model
+    # Display the predicted salary
+    col15, col16, col17 = st.columns(3)
+    with col15:
+        st.write('')  # Empty column for spacing
+    with col16:
+        st.text(f"Estimated salary: ${int(salary[0])}")  # Display the estimated salary
+    with col17:
+        st.write('')  # Empty column for spacing
